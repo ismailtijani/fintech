@@ -31,13 +31,6 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
       trim: true,
       validate: (value: string) => {
         return !value.toLowerCase().includes("password");
-
-        // if (value.toLowerCase().includes("password"))
-        //   throw new AppError({
-        //     message: "You can't use the word password",
-        //     statusCode: responseStatusCodes.BAD_REQUEST,
-        //     isOperational: true,
-        //   });
       },
       message: "You can't use the word password",
     },
@@ -78,7 +71,7 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>(
   { timestamps: true }
 );
 
-// User document relationship with another document (to enable populate)
+// User document relationship with Transaction document (to enable populate)
 userSchema.virtual("transactions", {
   ref: "Transaction",
   localField: "_id",
@@ -134,7 +127,6 @@ userSchema.methods.toJSON = function () {
   const userObject = this.toObject();
   delete userObject.password;
   delete userObject.tokens;
-  delete userObject.avatar;
   return userObject;
 };
 

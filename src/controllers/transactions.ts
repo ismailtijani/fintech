@@ -142,7 +142,7 @@ export default class Controller {
       });
       //Update user account balance
       user.balance = new_balance;
-      user.save();
+      await user.save();
 
       return responseHelper.successResponse(
         res,
@@ -361,7 +361,6 @@ export default class Controller {
         match: { transactionType: TransactionType.CREDIT },
       });
       const transactions = req.user?.transactions;
-      console.log(transactions);
       //Sum up all credit amount
       let totalcredit = 0;
       transactions?.forEach(
